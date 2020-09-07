@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { togglePlaylist } from '../../redux/playlist/playlistActions';
 
 const PlaylistButtonStyled = styled.div`
   position: fixed;
@@ -14,6 +16,7 @@ const PlaylistButtonStyled = styled.div`
   background-color: #a5a5a5;
   transition: all 0.2s ease;
   cursor: pointer;
+  user-select: none;
 
   &:hover {
     transform: scale(1.05);
@@ -40,8 +43,10 @@ const PlaylistButtonStyled = styled.div`
 `;
 
 const PlaylistButton = () => {
+  const dispatch = useDispatch();
+
   return (
-    <PlaylistButtonStyled>
+    <PlaylistButtonStyled onClick={() => dispatch(togglePlaylist(true))}>
       <i className="material-icons">playlist_add_check</i>
       <div className="films-counter">0</div>
     </PlaylistButtonStyled>

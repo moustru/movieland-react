@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getFilms } from '../redux/films/filmsActions';
 
 import FilmItem from './FilmItem';
-// import Playlist from './Playlist/Playlist';
+import Playlist from './Playlist/Playlist';
 import PlaylistButton from './Playlist/PlaylistButton';
 
 const FilmListStyled = styled.div`
@@ -17,6 +17,7 @@ const FilmListStyled = styled.div`
 
 export const FilmList = () => {
   const films = useSelector((state) => state.films.films);
+  const isPlaylist = useSelector((state) => state.playlist.isPlaylistVisible);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export const FilmList = () => {
   return (
     <FilmListStyled>
       { films.map((film: any) => <FilmItem key={film.id} film={film} />) }
-      {/* <Playlist /> */}
+      { isPlaylist ? <Playlist /> : null }
       <PlaylistButton />
     </FilmListStyled>
   );

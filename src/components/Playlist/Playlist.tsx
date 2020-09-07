@@ -1,6 +1,8 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import PlaylistItem from './PlaylistItem';
+import { togglePlaylist } from '../../redux/playlist/playlistActions';
 
 const PlaylistOverlay = styled.div`
   position: fixed;
@@ -33,21 +35,16 @@ const PlaylistStyled = styled.div`
 `;
 
 const Playlist = () => {
+  const dispatch = useDispatch();
+
+  const cancel = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <PlaylistOverlay>
-      <PlaylistStyled>
+    <PlaylistOverlay onClick={() => dispatch(togglePlaylist(false))}>
+      <PlaylistStyled onClick={(e) => cancel(e)}>
         <h1>Плейлист</h1>
-        <PlaylistItem />
-        <PlaylistItem />
-        <PlaylistItem />
-        <PlaylistItem />
-        <PlaylistItem />
-        <PlaylistItem />
-        <PlaylistItem />
-        <PlaylistItem />
-        <PlaylistItem />
-        <PlaylistItem />
-        <PlaylistItem />
         <PlaylistItem />
       </PlaylistStyled>
     </PlaylistOverlay>

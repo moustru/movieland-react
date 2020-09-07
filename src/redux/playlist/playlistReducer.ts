@@ -1,7 +1,12 @@
-import { ADD_TO_PLAYLIST, REMOVE_FROM_PLAYLIST } from './playlistTypes';
+import {
+  ADD_TO_PLAYLIST,
+  REMOVE_FROM_PLAYLIST,
+  TOGGLE_PLAYLIST
+} from './playlistTypes';
 
 const initialState = {
-  playlist: []
+  playlist: [],
+  isPlaylistVisible: false
 };
 
 export const playlistReducer = (state = initialState, action) => {
@@ -15,6 +20,11 @@ export const playlistReducer = (state = initialState, action) => {
       return {
         ...state,
         playlist: state.playlist.filter((id: string) => id !== action.id)
+      };
+    case TOGGLE_PLAYLIST:
+      return {
+        ...state,
+        isPlaylistVisible: action.event
       };
     default:
       return state;
