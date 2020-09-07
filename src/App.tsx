@@ -1,5 +1,6 @@
 import React from 'react';
-import { Header, FilmList } from './components';
+import { Header } from './components';
+import { FilmList } from './components/FilmList';
 
 const App = () => (
   <div className="wrapper">

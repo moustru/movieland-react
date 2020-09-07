@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { getFilms } from '../redux/films/filmsActions';
+
 import FilmItem from './FilmItem';
 // import Playlist from './Playlist/Playlist';
 import PlaylistButton from './Playlist/PlaylistButton';
@@ -12,20 +15,19 @@ const FilmListStyled = styled.div`
   margin: 30px auto;
 `;
 
-const FilmList = () => {
+export const FilmList = () => {
+  const films = useSelector((state) => state.films.films);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFilms());
+  }, []);
+
   return (
     <FilmListStyled>
-      <FilmItem />
-      <FilmItem />
-      <FilmItem />
-      <FilmItem />
-      <FilmItem />
-      <FilmItem />
-      <FilmItem />
+      { films.map((film: any) => <FilmItem key={film.id} film={film} />) }
       {/* <Playlist /> */}
       <PlaylistButton />
     </FilmListStyled>
   );
 };
-
-export default FilmList;

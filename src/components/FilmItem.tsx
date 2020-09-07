@@ -24,22 +24,31 @@ const FilmRates = styled.div`
   }
 `;
 
-const FilmItem = () => {
-  return (
-    <Film>
-      <div>
-        <img src="/logo192.png" alt="Not Found" style={{ width: '100%' }} />
-      </div>
-      <FilmTitle>Film title</FilmTitle>
-      <FilmRates>
-        <span>4.30</span>
-        <span>10000</span>
-      </FilmRates>
-      <button type="button" className="btn btn-yes">
-        Добавить в плейлист
-      </button>
-    </Film>
-  );
-};
+interface FilmItemInterface {
+  poster_path: string;
+  title: string;
+  vote_average: number;
+  popularity: number;
+}
+
+interface FilmItemProps {
+  film: FilmItemInterface;
+}
+
+const FilmItem = ({ film }: FilmItemProps) => (
+  <Film>
+    <div>
+      <img src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2/${film.poster_path}`} alt="Not Found" style={{ width: '100%' }} />
+    </div>
+    <FilmTitle>{film.title}</FilmTitle>
+    <FilmRates>
+      <span>{film.vote_average}</span>
+      <span>{film.popularity}</span>
+    </FilmRates>
+    <button type="button" className="btn btn-yes">
+      Добавить в плейлист
+    </button>
+  </Film>
+);
 
 export default FilmItem;
