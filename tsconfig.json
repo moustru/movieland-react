@@ -26,6 +26,5 @@
     "tests/**/*.ts",
     "tests/**/*.tsx",
     "src/components/index.js"
-  ],
-  "extends": "./paths.json"
+  ]
 }

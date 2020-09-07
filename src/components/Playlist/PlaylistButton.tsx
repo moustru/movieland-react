@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { togglePlaylist } from '../../redux/playlist/playlistActions';
 
 const PlaylistButtonStyled = styled.div`
@@ -44,11 +44,12 @@ const PlaylistButtonStyled = styled.div`
 
 const PlaylistButton = () => {
   const dispatch = useDispatch();
+  const playlistLength = useSelector((state) => state.playlist.playlist).length;
 
   return (
     <PlaylistButtonStyled onClick={() => dispatch(togglePlaylist(true))}>
       <i className="material-icons">playlist_add_check</i>
-      <div className="films-counter">0</div>
+      <div className="films-counter">{playlistLength}</div>
     </PlaylistButtonStyled>
   );
 };

@@ -9,6 +9,10 @@ const initialState = {
   isPlaylistVisible: false
 };
 
+interface Film {
+  id: number;
+}
+
 export const playlistReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_PLAYLIST:
@@ -19,7 +23,7 @@ export const playlistReducer = (state = initialState, action) => {
     case REMOVE_FROM_PLAYLIST:
       return {
         ...state,
-        playlist: state.playlist.filter((id: string) => id !== action.id)
+        playlist: state.playlist.filter((film: Film) => film.id !== action.id)
       };
     case TOGGLE_PLAYLIST:
       return {

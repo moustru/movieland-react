@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import PlaylistItem from './PlaylistItem';
 import { togglePlaylist } from '../../redux/playlist/playlistActions';
@@ -25,8 +25,6 @@ const PlaylistStyled = styled.div`
   z-index: 4;
 
   h1 {
-    position: sticky;
-    top: 0;
     margin: 10px 0;
     font-size: 56px;
     color: #fff;
@@ -34,8 +32,16 @@ const PlaylistStyled = styled.div`
   }
 `;
 
+const EmptyPlaylist = styled.h2`
+  display: block;
+  margin-top: 30px;
+  color: rgba(255, 255, 255, .7);
+  text-align: center;
+`;
+
 const Playlist = () => {
   const dispatch = useDispatch();
+  const playlist = useSelector((state) => state.playlist.playlist);
 
   const cancel = (e) => {
     e.stopPropagation();
@@ -45,7 +51,12 @@ const Playlist = () => {
     <PlaylistOverlay onClick={() => dispatch(togglePlaylist(false))}>
       <PlaylistStyled onClick={(e) => cancel(e)}>
         <h1>Плейлист</h1>
-        <PlaylistItem />
+        {
+          playlist.length ? null : <EmptyPlaylist>Фильмы еще не добавлены</EmptyPlaylist>
+        }
+        {
+          playlist.map((film) => <PlaylistItem key={film.id} film={film} />)
+        }
       </PlaylistStyled>
     </PlaylistOverlay>
   );
