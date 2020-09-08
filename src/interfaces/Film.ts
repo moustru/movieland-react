@@ -4,5 +4,10 @@ export interface Film {
   title: string;
   vote_average: number;
   popularity: number;
-  videos: boolean;
+  video: boolean;
+}
+
+export interface FilmVideoFrame {
+  title: string;
+  link: string;
 }

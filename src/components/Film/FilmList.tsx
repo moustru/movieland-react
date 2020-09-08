@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { getFilms } from '../../redux/films/filmsActions';
+import { getPopularFilms, getTopRatedFilms, getUpcomingFilms } from '../../redux/films/filmsActions';
+import { Tabs } from '../Tabs';
 
 import FilmItem from './FilmItem';
 import Playlist from '../Playlist/Playlist';
@@ -14,20 +15,35 @@ const FilmListStyled = styled.div`
   margin: 30px 0;
 `;
 
-export const FilmList = () => {
+export const FilmList = ({ match }: any) => {
   const films = useSelector((state) => state.films.films);
   const isPlaylist = useSelector((state) => state.playlist.isPlaylistVisible);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getFilms());
+    switch (match.path) {
+      case '/':
+        dispatch(getPopularFilms());
+        break;
+      case '/top_rated':
+        dispatch(getTopRatedFilms());
+        break;
+      case '/upcoming':
+        dispatch(getUpcomingFilms());
+        break;
+      default:
+        break;
+    }
   }, []);
 
   return (
-    <FilmListStyled>
-      { films.map((film: any) => <FilmItem key={film.id} film={film} />) }
-      { isPlaylist ? <Playlist /> : null }
-      <PlaylistButton />
-    </FilmListStyled>
+    <>
+      <Tabs />
+      <FilmListStyled>
+        { films.map((film: any) => <FilmItem key={film.id} film={film} />) }
+        { isPlaylist && <Playlist /> }
+        <PlaylistButton />
+      </FilmListStyled>
+    </>
   );
 };

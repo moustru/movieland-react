@@ -9,21 +9,10 @@ const FilmStyled = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  margin: 0 10px;
 
   .film-item {
     &__img {
       position: relative;
-    }
-
-    &__label {
-      position: absolute;
-      top: 5%;
-      left: 0;
-      padding: 5px;
-      background-color: #a01111;
-      font-size: 20px;
-      color: #fff;
     }
   }
 `;
@@ -133,9 +122,6 @@ const FilmItem = ({ film }: FilmItemProps) => {
   return (
     <FilmStyled>
       <div className="film-item__img">
-        {
-          film.videos ? <div className="film-item__label">Есть трейлер</div> : null
-        }
         <FilmImgOverlay to={`/film/${film.id}`}>
           <div />
           <span>Перейти к описанию</span>

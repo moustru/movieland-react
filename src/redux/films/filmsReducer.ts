@@ -1,7 +1,9 @@
 import {
-  GET_FILMS,
+  GET_POPULAR_FILMS,
+  GET_TOP_RATED_FILMS,
   GET_RELATED_FILM,
-  GET_FILM_VIDEOS
+  GET_FILM_VIDEOS,
+  GET_UPCOMING_FILMS
 } from './filmsTypes';
 import { FilmsStore } from '../../interfaces/Store';
 import { Film } from '../../interfaces/Film';
@@ -14,10 +16,12 @@ const initialState: FilmsStore = {
 
 export const filmsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_FILMS:
+    case GET_POPULAR_FILMS:
+    case GET_TOP_RATED_FILMS:
+    case GET_UPCOMING_FILMS:
       return {
         ...state,
-        films: action.data.sort((a: Film, b: Film) => b.popularity - a.popularity)
+        films: action.data.sort((a: Film, b: Film) => b.vote_average - a.vote_average)
       };
     case GET_RELATED_FILM:
       return {

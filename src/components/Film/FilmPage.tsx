@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { FilmVideoFrame } from '../../interfaces/Film';
 import { getRelatedFilm, getFilmVideos } from '../../redux/films/filmsActions';
+import { FilmVideo } from './FilmVideo';
 
 const FilmDetails = styled.div`
   display: flex;
@@ -30,14 +32,35 @@ const FilmDetails = styled.div`
 `;
 
 const FilmTrailer = styled.div`
-  margin-top: 30px;
+  margin-top: 10px;
 
   .film-trailer {
+    margin-bottom: 20px;
     font-size: 28px;
   }
 `;
 
-export const FilmPage = ({ match }: any) => {
+const LinkBack = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  font-size: 24px;
+  cursor: pointer;
+  user-select: none;
+
+  i {
+    margin-right: 5px;
+  }
+`;
+
+const FilmVideoComponent = ({ title, link }: FilmVideoFrame) => (
+  <>
+    <div className="film-trailer">Трейлер</div>
+    <FilmVideo title={title} link={link} />
+  </>
+);
+
+export const FilmPage = ({ history, match }: any) => {
   const dispatch = useDispatch();
   const film = useSelector((state) => state.films.relatedFilm);
   const videos = useSelector((state) => state.films.videos);
@@ -49,6 +72,10 @@ export const FilmPage = ({ match }: any) => {
 
   return (
     <>
+      <LinkBack onClick={() => history.goBack()}>
+        <i className="material-icons">arrow_back</i>
+        На главную
+      </LinkBack>
       <FilmDetails>
         <div className="film-details__img">
           <img src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2/${film.poster_path}`} alt="Not Found" />
@@ -59,13 +86,20 @@ export const FilmPage = ({ match }: any) => {
           <span className="film-details__desc-rating">Рейтинг: {film.vote_average}</span>
           <span className="film-details__desc-release">Дата выпуска: {film.release_date}</span>
           <span className="film-details__desc-overview">Описание: {film.overview}</span>
+          {
+            videos.results?.length
+              ? (
+                <FilmTrailer>
+                  <FilmVideoComponent
+                    title={film.title}
+                    link={videos.results[0].key}
+                  />
+                </FilmTrailer>
+              )
+              : null
+          }
         </div>
       </FilmDetails>
-      <FilmTrailer>
-        {
-          videos.results?.length ? <div className="film-trailer">Трейлер</div> : null
-        }
-      </FilmTrailer>
     </>
   );
 };
