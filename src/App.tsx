@@ -1,11 +1,11 @@
 import React from 'react';
 import { Header } from './components';
-import { FilmList } from './components/FilmList';
+import { RouterComponent } from './router';
 
 const App = () => (
   <div className="wrapper">
     <Header />
-    <FilmList />
+    <RouterComponent />
   </div>
 );
 

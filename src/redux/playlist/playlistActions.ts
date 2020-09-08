@@ -11,7 +11,7 @@ export const addToPlaylist = (film: any) => (
   }
 );
 
-export const removeFromPlaylist = (id: string) => (
+export const removeFromPlaylist = (id: number) => (
   {
     type: REMOVE_FROM_PLAYLIST,
     id

@@ -3,15 +3,13 @@ import {
   REMOVE_FROM_PLAYLIST,
   TOGGLE_PLAYLIST
 } from './playlistTypes';
+import { PlaylistStore } from '../../interfaces/Store';
+import { Film } from '../../interfaces/Film';
 
-const initialState = {
+const initialState: PlaylistStore = {
   playlist: [],
   isPlaylistVisible: false
 };
-
-interface Film {
-  id: number;
-}
 
 export const playlistReducer = (state = initialState, action) => {
   switch (action.type) {

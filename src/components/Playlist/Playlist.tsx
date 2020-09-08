@@ -43,7 +43,7 @@ const Playlist = () => {
   const dispatch = useDispatch();
   const playlist = useSelector((state) => state.playlist.playlist);
 
-  const cancel = (e) => {
+  const cancel = (e: Event): void => {
     e.stopPropagation();
   };
 

@@ -22,6 +22,15 @@ h1, h2, h3, h4, h5, h6, div, span, input, textarea, button {
   font-family: 'Open Sans Condensed';
 }
 
+a {
+  text-decoration: none;
+}
+
+.wrapper {
+  width: 80%;
+  margin: auto;
+}
+
 .btn {
   padding: 10px;
   font-size: 18px;

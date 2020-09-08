@@ -1,13 +1,75 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { addToPlaylist, removeFromPlaylist } from '../redux/playlist/playlistActions';
+import { addToPlaylist, removeFromPlaylist } from '../../redux/playlist/playlistActions';
+import { Film } from '../../interfaces/Film';
 
-const Film = styled.div`
+const FilmStyled = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   margin: 0 10px;
+
+  .film-item {
+    &__img {
+      position: relative;
+    }
+
+    &__label {
+      position: absolute;
+      top: 5%;
+      left: 0;
+      padding: 5px;
+      background-color: #a01111;
+      font-size: 20px;
+      color: #fff;
+    }
+  }
+`;
+
+const FilmImgOverlay = styled(Link)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 98.5%;
+  transition: all .2s ease;
+
+  div, span {
+    opacity: 0;
+    transition: all .2s ease;
+  }
+
+  div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #474bb9;
+    cursor: pointer;
+  }
+
+  span {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    z-index: 2;
+  }
+
+  &:hover {
+    div {
+      opacity: .5;
+    }
+
+    span {
+      opacity: 1;
+    }
+  }
 `;
 
 const FilmTitle = styled.div`
@@ -28,16 +90,12 @@ const FilmRates = styled.div`
   }
 `;
 
-interface FilmItemInterface {
-  id: number;
-  poster_path: string;
-  title: string;
-  vote_average: number;
-  popularity: number;
+interface FilmItemProps {
+  film: Film;
 }
 
-interface FilmItemProps {
-  film: FilmItemInterface;
+interface ButtonAddedProps {
+  id: number;
 }
 
 const ButtonIsNotAdded = ({ film }: FilmItemProps) => {
@@ -54,7 +112,7 @@ const ButtonIsNotAdded = ({ film }: FilmItemProps) => {
   );
 };
 
-const ButtonIsAdded = ({ id }) => {
+const ButtonIsAdded = ({ id }: ButtonAddedProps) => {
   const dispatch = useDispatch();
 
   return (
@@ -73,8 +131,15 @@ const FilmItem = ({ film }: FilmItemProps) => {
   const isFilmInPlaylist = playlist.map((item) => item.id).includes(film.id);
 
   return (
-    <Film>
-      <div>
+    <FilmStyled>
+      <div className="film-item__img">
+        {
+          film.videos ? <div className="film-item__label">Есть трейлер</div> : null
+        }
+        <FilmImgOverlay to={`/film/${film.id}`}>
+          <div />
+          <span>Перейти к описанию</span>
+        </FilmImgOverlay>
         <img src={`https://image.tmdb.org/t/p/w370_and_h556_bestv2/${film.poster_path}`} alt="Not Found" style={{ width: '100%' }} />
       </div>
       <FilmTitle>{film.title}</FilmTitle>
@@ -85,7 +150,7 @@ const FilmItem = ({ film }: FilmItemProps) => {
       {
         isFilmInPlaylist ? <ButtonIsAdded id={film.id} /> : <ButtonIsNotAdded film={film} />
       }
-    </Film>
+    </FilmStyled>
   );
 };
 

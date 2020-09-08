@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { removeFromPlaylist } from '../../redux/playlist/playlistActions';
+import { Film } from '../../interfaces/Film';
 
 const PlaylistItemStyled = styled.div`
   display: flex;
@@ -34,7 +35,11 @@ const PlaylistItemStyled = styled.div`
   }
 `;
 
-const PlaylistItem = ({ film }) => {
+interface PlaylistItemProps {
+  film: Film;
+}
+
+const PlaylistItem = ({ film }: PlaylistItemProps) => {
   const dispatch = useDispatch();
 
   return (
