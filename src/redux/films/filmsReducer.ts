@@ -2,6 +2,7 @@ import {
   GET_POPULAR_FILMS,
   GET_TOP_RATED_FILMS,
   GET_RELATED_FILM,
+  CLEAR_FILM_DATA,
   GET_FILM_VIDEOS,
   GET_UPCOMING_FILMS
 } from './filmsTypes';
@@ -32,6 +33,12 @@ export const filmsReducer = (state = initialState, action) => {
       return {
         ...state,
         videos: action.data
+      };
+    case CLEAR_FILM_DATA:
+      return {
+        ...state,
+        relatedFilm: {},
+        videos: {}
       };
     default:
       return state;

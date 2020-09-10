@@ -3,6 +3,7 @@ import {
   GET_POPULAR_FILMS,
   GET_TOP_RATED_FILMS,
   GET_UPCOMING_FILMS,
+  CLEAR_FILM_DATA,
   GET_RELATED_FILM,
   GET_FILM_VIDEOS
 } from './filmsTypes';
@@ -33,6 +34,12 @@ export const getUpcomingFilms = () => async (dispatch) => {
     data: data.results
   });
 };
+
+export const clearFilmData = () => (
+  {
+    type: CLEAR_FILM_DATA
+  }
+);
 
 export const getRelatedFilm = (id: string) => async (dispatch) => {
   const { data } = await FilmsController.getRelatedFilm(id);

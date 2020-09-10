@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { FilmVideoFrame } from '../../interfaces/Film';
-import { getRelatedFilm, getFilmVideos } from '../../redux/films/filmsActions';
+import { getRelatedFilm, getFilmVideos, clearFilmData } from '../../redux/films/filmsActions';
 import { FilmVideo } from './FilmVideo';
 
 const FilmDetails = styled.div`
@@ -65,9 +65,11 @@ export const FilmPage = ({ history, match }: any) => {
   const film = useSelector((state) => state.films.relatedFilm);
   const videos = useSelector((state) => state.films.videos);
 
-  useEffect(() => {
+  useEffect((): any => {
     dispatch(getRelatedFilm(match.params.id));
     dispatch(getFilmVideos(match.params.id));
+
+    return (() => { clearFilmData(); });
   }, []);
 
   return (
