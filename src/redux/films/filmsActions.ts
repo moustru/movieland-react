@@ -1,6 +1,7 @@
 import FilmsController from '../../controllers/FilmsController';
 import {
   GET_POPULAR_FILMS,
+  REQUEST_POPULAR_FILMS,
   GET_TOP_RATED_FILMS,
   GET_UPCOMING_FILMS,
   CLEAR_FILM_DATA,
@@ -8,14 +9,27 @@ import {
   GET_FILM_VIDEOS
 } from './filmsTypes';
 
-export const getPopularFilms = () => async (dispatch) => {
-  const { data } = await FilmsController.getPopularFilms();
+export const getPopularFilms = () => (
+  {
+    type: REQUEST_POPULAR_FILMS
+  }
+);
 
-  dispatch({
+export const fetchPopularFilms = (data) => (
+  {
     type: GET_POPULAR_FILMS,
     data: data.results
-  });
-};
+  }
+);
+
+// export const getPopularFilms = () => async (dispatch) => {
+//   const { data } = await FilmsController.getPopularFilms();
+
+//   dispatch({
+//     type: GET_POPULAR_FILMS,
+//     data: data.results
+//   });
+// };
 
 export const getTopRatedFilms = () => async (dispatch) => {
   const { data } = await FilmsController.getTopRatedFilms();

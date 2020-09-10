@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.scss';
 import App from './App';
 import './interceptor';
-import store from './redux';
+import { store } from './redux';
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,8 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import PlaylistItem from './PlaylistItem';
 import { togglePlaylist } from '../../redux/playlist/playlistActions';
+import PlaylistItem from './PlaylistItem';
+import { Film } from '../../interfaces/Film';
 
 const PlaylistOverlay = styled.div`
   position: fixed;
@@ -49,13 +50,13 @@ const Playlist = () => {
 
   return (
     <PlaylistOverlay onClick={() => dispatch(togglePlaylist(false))}>
-      <PlaylistStyled onClick={(e) => cancel(e)}>
+      <PlaylistStyled onClick={(e: Event) => cancel(e)}>
         <h1>Плейлист</h1>
         {
           playlist.length ? null : <EmptyPlaylist>Фильмы еще не добавлены</EmptyPlaylist>
         }
         {
-          playlist.map((film) => <PlaylistItem key={film.id} film={film} />)
+          playlist.map((film: Film) => <PlaylistItem key={film.id} film={film} />)
         }
       </PlaylistStyled>
     </PlaylistOverlay>
