@@ -1,4 +1,3 @@
-// import FilmsController from '../../controllers/FilmsController';
 import {
   GET_POPULAR_FILMS,
   REQUEST_POPULAR_FILMS,

@@ -6,8 +6,3 @@ export interface Film {
   popularity: number;
   video: boolean;
 }
-
-export interface FilmVideoFrame {
-  title: string;
-  link: string;
-}
