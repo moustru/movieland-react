@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { action } from '../../redux';
 import { getPopularFilms, getTopRatedFilms, getUpcomingFilms } from '../../redux/films/filmsActions';
 import { Tabs } from '../Tabs';
 
@@ -9,7 +8,6 @@ import FilmItem from './FilmItem';
 import Playlist from '../Playlist/Playlist';
 import PlaylistButton from '../Playlist/PlaylistButton';
 import { Film } from '../../interfaces/Film';
-// import { REQUEST_POPULAR_FILMS } from '../../redux/films/filmsTypes';
 
 const FilmListStyled = styled.div`
   display: grid;
@@ -26,7 +24,7 @@ export const FilmList = ({ match }: any) => {
   useEffect(() => {
     switch (match.path) {
       case '/':
-        action(getPopularFilms());
+        dispatch(getPopularFilms());
         break;
       case '/top_rated':
         dispatch(getTopRatedFilms());

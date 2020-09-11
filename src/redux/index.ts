@@ -6,17 +6,17 @@ import { filmsSagas } from './films/filmsSagas';
 
 function* rootSaga() {
   yield all([
-    filmsSagas
+    filmsSagas()
   ]);
 }
 
 const sagaMiddleware = createSagaMiddleware();
 
-export const store = createStore(
+const store = createStore(
   rootReducer,
   applyMiddleware(sagaMiddleware)
 );
 
 sagaMiddleware.run(rootSaga);
 
-export const action = (type) => store.dispatch({ type });
+export default store;

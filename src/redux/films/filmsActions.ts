@@ -1,4 +1,4 @@
-import FilmsController from '../../controllers/FilmsController';
+// import FilmsController from '../../controllers/FilmsController';
 import {
   GET_POPULAR_FILMS,
   REQUEST_POPULAR_FILMS,
@@ -6,7 +6,9 @@ import {
   GET_UPCOMING_FILMS,
   CLEAR_FILM_DATA,
   GET_RELATED_FILM,
-  GET_FILM_VIDEOS
+  REQUEST_RELATED_FILM,
+  REQUEST_TOP_RATED_FILMS,
+  REQUEST_UPCOMING_FILMS
 } from './filmsTypes';
 
 export const getPopularFilms = () => (
@@ -18,57 +20,52 @@ export const getPopularFilms = () => (
 export const fetchPopularFilms = (data) => (
   {
     type: GET_POPULAR_FILMS,
-    data: data.results
+    payload: data.results
   }
 );
 
-// export const getPopularFilms = () => async (dispatch) => {
-//   const { data } = await FilmsController.getPopularFilms();
+export const getRelatedFilm = (id: string) => (
+  {
+    type: REQUEST_RELATED_FILM,
+    payload: id
+  }
+);
 
-//   dispatch({
-//     type: GET_POPULAR_FILMS,
-//     data: data.results
-//   });
-// };
+export const fetchRelatedFilm = (data) => (
+  {
+    type: GET_RELATED_FILM,
+    payload: data
+  }
+);
 
-export const getTopRatedFilms = () => async (dispatch) => {
-  const { data } = await FilmsController.getTopRatedFilms();
+export const getTopRatedFilms = () => (
+  {
+    type: REQUEST_TOP_RATED_FILMS
+  }
+);
 
-  dispatch({
+export const fetchTopRatedFilms = (data) => (
+  {
     type: GET_TOP_RATED_FILMS,
-    data: data.results
-  });
-};
+    payload: data.results
+  }
+);
 
-export const getUpcomingFilms = () => async (dispatch) => {
-  const { data } = await FilmsController.getUpcomingFilms();
+export const getUpcomingFilms = () => (
+  {
+    type: REQUEST_UPCOMING_FILMS
+  }
+);
 
-  dispatch({
+export const fetchUpcomingFilms = (data) => (
+  {
     type: GET_UPCOMING_FILMS,
-    data: data.results
-  });
-};
+    payload: data.results
+  }
+);
 
 export const clearFilmData = () => (
   {
     type: CLEAR_FILM_DATA
   }
 );
-
-export const getRelatedFilm = (id: string) => async (dispatch) => {
-  const { data } = await FilmsController.getRelatedFilm(id);
-
-  dispatch({
-    type: GET_RELATED_FILM,
-    data
-  });
-};
-
-export const getFilmVideos = (id: string) => async (dispatch) => {
-  const { data } = await FilmsController.getFilmVideos(id);
-
-  dispatch({
-    type: GET_FILM_VIDEOS,
-    data
-  });
-};

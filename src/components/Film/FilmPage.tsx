@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { FilmVideoFrame } from '../../interfaces/Film';
-import { getRelatedFilm, getFilmVideos, clearFilmData } from '../../redux/films/filmsActions';
-import { FilmVideo } from './FilmVideo';
+import { getRelatedFilm, clearFilmData } from '../../redux/films/filmsActions';
 
 const FilmDetails = styled.div`
   display: flex;
@@ -31,15 +29,6 @@ const FilmDetails = styled.div`
   }
 `;
 
-const FilmTrailer = styled.div`
-  margin-top: 10px;
-
-  .film-trailer {
-    margin-bottom: 20px;
-    font-size: 28px;
-  }
-`;
-
 const LinkBack = styled.div`
   display: flex;
   align-items: center;
@@ -53,21 +42,12 @@ const LinkBack = styled.div`
   }
 `;
 
-const FilmVideoComponent = ({ title, link }: FilmVideoFrame) => (
-  <>
-    <div className="film-trailer">Трейлер</div>
-    <FilmVideo title={title} link={link} />
-  </>
-);
-
 export const FilmPage = ({ history, match }: any) => {
   const dispatch = useDispatch();
   const film = useSelector((state) => state.films.relatedFilm);
-  const videos = useSelector((state) => state.films.videos);
 
   useEffect((): any => {
     dispatch(getRelatedFilm(match.params.id));
-    dispatch(getFilmVideos(match.params.id));
 
     return (() => { clearFilmData(); });
   }, []);
@@ -88,18 +68,6 @@ export const FilmPage = ({ history, match }: any) => {
           <span className="film-details__desc-rating">Рейтинг: {film.vote_average}</span>
           <span className="film-details__desc-release">Дата выпуска: {film.release_date}</span>
           <span className="film-details__desc-overview">Описание: {film.overview}</span>
-          {
-            videos.results?.length
-              ? (
-                <FilmTrailer>
-                  <FilmVideoComponent
-                    title={film.title}
-                    link={videos.results[0].key}
-                  />
-                </FilmTrailer>
-              )
-              : null
-          }
         </div>
       </FilmDetails>
     </>

@@ -3,7 +3,6 @@ import {
   GET_TOP_RATED_FILMS,
   GET_RELATED_FILM,
   CLEAR_FILM_DATA,
-  GET_FILM_VIDEOS,
   GET_UPCOMING_FILMS
 } from './filmsTypes';
 import { FilmsStore } from '../../interfaces/Store';
@@ -11,8 +10,7 @@ import { Film } from '../../interfaces/Film';
 
 const initialState: FilmsStore = {
   films: [],
-  relatedFilm: {},
-  videos: {}
+  relatedFilm: {}
 };
 
 export const filmsReducer = (state = initialState, action) => {
@@ -22,23 +20,17 @@ export const filmsReducer = (state = initialState, action) => {
     case GET_UPCOMING_FILMS:
       return {
         ...state,
-        films: action.data.sort((a: Film, b: Film) => b.vote_average - a.vote_average)
+        films: action.payload.sort((a: Film, b: Film) => b.vote_average - a.vote_average)
       };
     case GET_RELATED_FILM:
       return {
         ...state,
-        relatedFilm: action.data
-      };
-    case GET_FILM_VIDEOS:
-      return {
-        ...state,
-        videos: action.data
+        relatedFilm: action.payload
       };
     case CLEAR_FILM_DATA:
       return {
         ...state,
-        relatedFilm: {},
-        videos: {}
+        relatedFilm: {}
       };
     default:
       return state;
